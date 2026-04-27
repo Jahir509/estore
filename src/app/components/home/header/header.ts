@@ -6,6 +6,8 @@ import {
   faShoppingCart,
 } from '@fortawesome/free-solid-svg-icons';
 import { CategoriesStoreItem } from '../services/categories/categories.store-item';
+import { SearchType } from '../types/searchType.interface';
+
 
 @Component({
   selector: 'app-header',
@@ -19,12 +21,15 @@ export class Header {
   faShoppingCart = faShoppingCart;
 
   // Event
-  onMainCategoryClicked = output<number>();
+  onSearchClicked = output<SearchType>();
+ 
 
   constructor(public categoryStore: CategoriesStoreItem) {}
 
-  onCategorySelect(event: Event) {
-    const categoryId = (event.target as HTMLSelectElement).value;
-    this.onMainCategoryClicked.emit(Number(categoryId));
+  onCategorySelect(categoryId: string, keyword: string): void {
+    if(!categoryId || !keyword) {
+      return;
+    }
+    this.onSearchClicked.emit({ categoryId: +categoryId, keyword });
   }
 }

@@ -15,6 +15,7 @@ export class ProductService extends BaseService<Product> {
   getProductsList(filters?:{
     parent_category_id?: number;
     sub_category_id?: number;
+    keyword?: string;
   }): Observable<Product[]> {
     let params = new HttpParams();
 
@@ -23,6 +24,9 @@ export class ProductService extends BaseService<Product> {
     }
     if (filters?.sub_category_id != null){
       params = params.set('sub', filters.sub_category_id.toString());
+    }
+    if (filters?.keyword) {
+      params = params.set('keyword', filters.keyword);
     }
     
     return this.http.get<Product[]>(this.apiUrl, { params });

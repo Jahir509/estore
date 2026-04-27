@@ -9,8 +9,8 @@
     class="p-0 w-[50%] h-[2.5rem] bg-white flex items-center rounded-md overflow-hidden"
   >
     <select
+      #categorySelect
       class="w-auto bg-gray-300 h-full border-none font-semibold px-2 pr-5"
-      (change)="onCategorySelect($event)"
     >
       <option value="" selected disabled>All Categories</option>
       @for(category of categoryStore.topLevelCategories(); track category.id) {
@@ -18,13 +18,17 @@
       }
     </select>
     <input
+      #keyword
       class="w-full h-full border-none outline-none px-3"
       placeholder="Search..."
     />
+      <!-- [disabled]="!(categorySelect.value || keyword.value)" -->
+
     <button
+      (click)="onCategorySelect(categorySelect.value, keyword.value)"
       class="w-[10%] h-full border-none bg-gray-300 flex justify-center items-center"
     >
-      <fa-icon [icon]="faSearch"></fa-icon>
+    <fa-icon [icon]="faSearch"></fa-icon>
     </button>
   </div>
 

@@ -7,6 +7,7 @@ import { CategoryService } from './services/categories/category-service';
 import { CategoriesStoreItem } from './services/categories/categories.store-item';
 import { ProductService } from './services/products/product-service';
 import { ProductStoreItem } from './services/products/product.store-item';
+import { SearchType } from './types/searchType.interface';
 
 @Component({
   selector: 'app-home',
@@ -28,5 +29,9 @@ export class Home {
 
   onSelectMainCategory(paentCategoryId: number) {
     this.productStoreItem.loadProducts({ parent_category_id: paentCategoryId });
+  }
+
+  onSearchOptionClicked(filter: SearchType) {
+    this.productStoreItem.loadProducts({ parent_category_id: filter.categoryId, keyword: filter.keyword });
   }
 }
