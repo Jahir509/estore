@@ -10,6 +10,7 @@
   >
     <select
       class="w-auto bg-gray-300 h-full border-none font-semibold px-2 pr-5"
+      (change)="onCategorySelect($event)"
     >
       <option value="" selected disabled>All Categories</option>
       @for(category of categoryStore.topLevelCategories(); track category.id) {

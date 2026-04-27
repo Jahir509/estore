@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, output } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   faSearch,
@@ -18,5 +18,13 @@ export class Header {
   faUserCircle = faUserCircle;
   faShoppingCart = faShoppingCart;
 
+  // Event
+  onMainCategoryClicked = output<number>();
+
   constructor(public categoryStore: CategoriesStoreItem) {}
+
+  onCategorySelect(event: Event) {
+    const categoryId = (event.target as HTMLSelectElement).value;
+    this.onMainCategoryClicked.emit(Number(categoryId));
+  }
 }

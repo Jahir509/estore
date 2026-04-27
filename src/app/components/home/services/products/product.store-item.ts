@@ -14,8 +14,11 @@ export class ProductStoreItem{
 
 
 
-    loadProducts() {
-        this.productService.getProductsList().subscribe((products) => {
+    loadProducts(filters?:{
+        parent_category_id?: number;
+        sub_category_id?: number;
+    }) {
+        this.productService.getProductsList(filters).subscribe((products) => {
             this._products.set(products);
         });
     }

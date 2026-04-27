@@ -1,17 +1,34 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../../types/product.interface';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { BaseService } from '../base.service';
 
 @Injectable()
-export class ProductService {
-  constructor(private http: HttpClient) {}
+export class ProductService extends BaseService<Product> {
 
-  getProductsList(): Observable<Product[]> {
-    return this.http.get<Product[]>('http://localhost:5001/products');
+  constructor(http: HttpClient) {
+    super(http);
+    this.apiUrl = '/products';
+  }
+
+  getProductsList(filters?:{
+    parent_category_id?: number;
+    sub_category_id?: number;
+  }): Observable<Product[]> {
+    let params = new HttpParams();
+
+    if (filters?.parent_category_id != null){
+      params = params.set('parent', filters.parent_category_id.toString());
+    }
+    if (filters?.sub_category_id != null){
+      params = params.set('sub', filters.sub_category_id.toString());
+    }
+    
+    return this.http.get<Product[]>(this.apiUrl, { params });
   }
 
   getProductById(id: number): Observable<Product> {
-    return this.http.get<Product>(`http://localhost:5001/products/${id}`);
+    return this.getById(id);
   }
 }

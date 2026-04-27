@@ -23,8 +23,8 @@
             @for(subCategory of getCategories(mainCategory.id); track subCategory.id) {
               <li>
                 <a
-                  href="#"
-                  class="block px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 transition"
+                  class="block px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 transition cursor-pointer"
+                  (click)="onSubCategoryClicked(subCategory)"
                 >
                   {{subCategory.category}}
                 </a>
