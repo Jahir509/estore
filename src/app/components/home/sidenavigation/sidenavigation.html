@@ -10,27 +10,30 @@
 
   <!--Accordion-->
   <div class="mt-4 space-y-3">
-    <details class="group rounded-t-xl bg-white border border-gray-200">
-      <summary
-        class="cursor-pointer list-none px-5 py-3 bg-blue-100 font-semibold text-gray-600 hover:bg-blue-50 flex justify-between items-center transition rounded-t-xl"
-      >
-        <span class="text-gray-700">Category</span>
-        <fa-icon [icon]="faAngleDown" class="transform transition-transform group-open:rotate-180"></fa-icon>
-      </summary>
-      <div class="px-5 py-4">
-        <ul class="space-y-3">
-          <li class="text-center">
-            <a href="#" class="
-            text-gray-700 font-medium relative inline-block after:block after:h-[2px] after:bg-blue-500 after:origin-left after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300
-            "> Item 1</a>
-          </li>
-          <li class="text-center">
-            <a href="#" class="
-            text-gray-700 font-medium relative inline-block after:block after:h-[2px] after:bg-blue-500 after:origin-left after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300
-            "> Item 2</a>
-          </li>
-        </ul>
-      </div>
-    </details>
+     @for (mainCategory of getCategories(); track mainCategory.id) {
+      <details class="group rounded-t-xl bg-white border border-gray-200">
+        <summary
+          class="cursor-pointer list-none px-5 py-3 bg-blue-100 font-semibold text-gray-600 hover:bg-blue-50 flex justify-between items-center transition rounded-t-xl"
+        >
+          <span class="text-gray-700">{{mainCategory.category}}</span>
+          <fa-icon [icon]="faAngleDown" class="transform transition-transform group-open:rotate-180"></fa-icon>
+        </summary>
+        <div class="px-5 py-4">
+          <ul class="space-y-3">
+            @for(subCategory of getCategories(mainCategory.id); track subCategory.id) {
+              <li>
+                <a
+                  href="#"
+                  class="block px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 transition"
+                >
+                  {{subCategory.category}}
+                </a>
+              </li>
+            }
+          </ul>
+        </div>
+      </details>
+    }
+    
   </div>
 </div>
