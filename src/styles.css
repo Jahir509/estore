@@ -1,2 +1,4 @@
+@import "@fortawesome/fontawesome-svg-core/styles.css";
 @import "tailwindcss";
 @source "./";
+@tailwind utilities;
