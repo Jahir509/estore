@@ -8,10 +8,11 @@ import { CategoriesStoreItem } from './services/categories/categories.store-item
 import { ProductService } from './services/products/product-service';
 import { ProductStoreItem } from './services/products/product.store-item';
 import { SearchType } from './types/searchType.interface';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-home',
-  imports: [Header, Navigation, Sidenavigation, Products],
+  imports: [Header, Navigation, RouterOutlet],
   templateUrl: './home.html',
   styleUrl: './home.css',
   providers: [CategoryService,CategoriesStoreItem, ProductService, ProductStoreItem]
@@ -23,9 +24,7 @@ export class Home {
     this.categoryStoreItem.loadCategories();
   }
 
-  onSelectSubCategory(subCategoryId: number): void {
-    this.productStoreItem.loadProducts({ sub_category_id: subCategoryId });
-  }
+
 
   onSelectMainCategory(paentCategoryId: number) {
     this.productStoreItem.loadProducts({ parent_category_id: paentCategoryId });
