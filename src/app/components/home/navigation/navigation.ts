@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Category } from '../types/category';
 import { CategoryService } from '../services/category-service';
+import { CategoriesStoreItem } from '../services/categories.store-item';
 
 @Component({
   selector: 'app-navigation',
@@ -9,14 +10,9 @@ import { CategoryService } from '../services/category-service';
   styleUrl: './navigation.css',
 })
 export class Navigation {
-  categories: Category[] = [];
+  constructor(public categoryStore: CategoriesStoreItem) {}
 
-  constructor(private categoryService: CategoryService) {
-    this.categoryService.getAllCategories().subscribe((categories) => {
-      this.categories = categories.filter((category)=> category.parent_category_id === null);
-    });
+  getTopLevelCategories(): Category[] {
+    return this.categoryStore.topLevelCategories();
   }
-
-
-
 }

@@ -4,9 +4,7 @@ import { Category } from '../types/category';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class CategoryService {
     constructor(private http: HttpClient) {}
   
