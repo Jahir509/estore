@@ -6,7 +6,8 @@ export const routes: Routes = [
         loadComponent: () => import('./components/home/home').then(m => m.Home),
         children: [
             { path: '', redirectTo: 'products', pathMatch: 'full' },
-            { path: 'products', loadComponent: () => import('./components/home/products-gallery/products-gallery').then(m => m.ProductsGallery) }
+            { path: 'products', loadComponent: () => import('./components/home/products-gallery/products-gallery').then(m => m.ProductsGallery) },
+            { path: 'product/:id', loadComponent: () => import('./components/home/products-details/products-details').then(m => m.ProductsDetails) }
         ]
     },  
     { path: '', redirectTo: '/home/products', pathMatch: 'full' },

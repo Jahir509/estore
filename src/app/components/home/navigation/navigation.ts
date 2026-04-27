@@ -1,17 +1,27 @@
-import { Component, inject, output } from '@angular/core';
+import { Component, output, signal } from '@angular/core';
 import { Category } from '../types/category.interface';
-import { CategoryService } from '../services/categories/category-service';
 import { CategoriesStoreItem } from '../services/categories/categories.store-item';
+import { NavigationEnd,Router, RouterLink } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-navigation',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './navigation.html',
   styleUrl: './navigation.css',
 })
 export class Navigation {
   parentCategoryClicked = output<number>();
-  constructor(public categoryStore: CategoriesStoreItem) {}
+  displayOptions = signal<boolean>(true);
+
+  constructor(public categoryStore: CategoriesStoreItem,private router:Router) {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      this.displayOptions.set(event.url === '/home/products');
+    });
+
+  }
 
   getTopLevelCategories(): Category[] {
     return this.categoryStore.topLevelCategories();
