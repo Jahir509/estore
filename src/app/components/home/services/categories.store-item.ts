@@ -1,6 +1,6 @@
 import { computed, Injectable, signal } from "@angular/core";
-import { Category } from "../../types/category.interface";
-import { CategoryService } from "./category-service";
+import { Category } from "../types/category.interface";
+import { CategoryService } from "./categories/category-service";
 
 @Injectable()
 export class CategoriesStoreItem {

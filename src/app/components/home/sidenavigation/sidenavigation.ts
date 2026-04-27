@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
-import { Category } from '../types/category';
+import { Category } from '../types/category.interface';
 import { CategoriesStoreItem } from '../services/categories/categories.store-item';
 
 @Component({

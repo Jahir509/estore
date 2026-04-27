@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Category } from '../types/category';
+import { Category } from '../types/category.interface';
 import { CategoryService } from '../services/categories/category-service';
 import { CategoriesStoreItem } from '../services/categories/categories.store-item';
 
