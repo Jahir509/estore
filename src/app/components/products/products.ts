@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ProductService } from './product-service';
 import { CommonModule } from '@angular/common';
 import { Ratings } from "../ratings/ratings";
+import { ProductListItem } from './products.type';
 
 @Component({
   selector: 'app-products',
@@ -10,10 +11,11 @@ import { Ratings } from "../ratings/ratings";
   styleUrl: './products.css',
 })
 export class Products {
-  constructor(private productService: ProductService) {}
-
-  getProductsList() {
-    return this.productService.getProductsList();
+  products: ProductListItem[] = [];
+  constructor(private productService: ProductService) {
+    this.productService.getProductsList().subscribe((products) => {
+      this.products = products;
+    });
   }
-  
+
 }
