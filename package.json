@@ -4,6 +4,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:optimize": "VITE_OPTIMIZE=true ng serve",
+    "start:no-optimize": "VITE_OPTIMIZE=false ng serve",
+    "clear-cache": "rm -rf .angular/cache node_modules/.vite",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
@@ -33,6 +36,7 @@
     "@angular/ssr": "^20.3.24",
     "@fortawesome/angular-fontawesome": "^4.0.0",
     "@fortawesome/fontawesome-svg-core": "^7.2.0",
+    "@fortawesome/free-regular-svg-icons": "^7.2.0",
     "@fortawesome/free-solid-svg-icons": "^7.2.0",
     "@tailwindcss/postcss": "^4.2.4",
     "express": "^5.1.0",
