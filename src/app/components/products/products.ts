@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { ProductService } from './product-service';
+import { ProductService } from '../home/services/products/product-service';
 import { CommonModule } from '@angular/common';
 import { Ratings } from "../ratings/ratings";
-import { ProductListItem } from './products.type';
+import { ProductListItem } from '../home/types/products.type';
 
 @Component({
   selector: 'app-products',

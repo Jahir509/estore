@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { Category } from '../types/category';
-import { CategoriesStoreItem } from '../services/categories.store-item';
+import { CategoriesStoreItem } from '../services/categories/categories.store-item';
 
 @Component({
   selector: 'app-sidenavigation',

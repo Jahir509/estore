@@ -5,7 +5,7 @@ import {
   faUserCircle,
   faShoppingCart,
 } from '@fortawesome/free-solid-svg-icons';
-import { CategoriesStoreItem } from '../services/categories.store-item';
+import { CategoriesStoreItem } from '../services/categories/categories.store-item';
 
 @Component({
   selector: 'app-header',

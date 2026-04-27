@@ -3,8 +3,8 @@ import { Header } from './header/header';
 import { Navigation } from './navigation/navigation';
 import { Sidenavigation } from './sidenavigation/sidenavigation';
 import { Products } from "../products/products";
-import { CategoryService } from './services/category-service';
-import { CategoriesStoreItem } from './services/categories.store-item';
+import { CategoryService } from './services/categories/category-service';
+import { CategoriesStoreItem } from './services/categories/categories.store-item';
 
 @Component({
   selector: 'app-home',
