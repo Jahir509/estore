@@ -6,6 +6,7 @@ import { CartStoreItem } from '../services/cart/cart.store-item';
 import { Router } from '@angular/router';
 import { Ratings } from '../../ratings/ratings';
 import { CommonModule } from '@angular/common';
+import { CartItem } from '../types/cart.interface';
 @Component({
   selector: 'app-cart',
   imports: [FontAwesomeModule,Ratings,CommonModule],
@@ -21,5 +22,17 @@ export class Cart {
   
   navigateToHome(): void {
     this.router.navigate(['home/products']);
+  }
+
+  updateQuantity($event: any, cartItem: CartItem): void {
+    if ($event.target.innerText === '+') {
+      this.cartStore.addToCart(cartItem.product);
+    } else if ($event.target.innerText === '-') {
+      this.cartStore.decreaseProductQuantity(cartItem);
+    }
+  }
+
+  removeItem(cartItem: CartItem): void {
+    this.cartStore.removeProduct(cartItem);
   }
 }
