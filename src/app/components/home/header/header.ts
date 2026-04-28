@@ -1,4 +1,4 @@
-import { Component, output, signal } from '@angular/core';
+import { Component, inject, output, signal } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   faSearch,
@@ -9,6 +9,7 @@ import { CategoriesStoreItem } from '../services/categories/categories.store-ite
 import { SearchType } from '../types/searchType.interface';
 import { Router,NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { CartStoreItem } from '../services/cart/cart.store-item';
 
 @Component({
   selector: 'app-header',
@@ -20,13 +21,11 @@ export class Header {
   faSearch = faSearch;
   faUserCircle = faUserCircle;
   faShoppingCart = faShoppingCart;
-
   // Event
   onSearchClicked = output<SearchType>();
   displayOptions = signal<boolean>(true);
 
-
-  constructor(public categoryStore: CategoriesStoreItem,private router:Router) {
+  constructor(public categoryStore: CategoriesStoreItem,private router:Router,public cartStore: CartStoreItem) {
      this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
@@ -39,5 +38,9 @@ export class Header {
       return;
     }
     this.onSearchClicked.emit({ categoryId: +categoryId, keyword });
+  }
+
+  navigateToCart(): void {
+    this.router.navigate(['home/cart']);
   }
 }

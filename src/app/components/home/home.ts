@@ -9,13 +9,20 @@ import { ProductService } from './services/products/product-service';
 import { ProductStoreItem } from './services/products/product.store-item';
 import { SearchType } from './types/searchType.interface';
 import { RouterOutlet } from '@angular/router';
+import { CartStoreItem } from './services/cart/cart.store-item';
 
 @Component({
   selector: 'app-home',
   imports: [Header, Navigation, RouterOutlet],
   templateUrl: './home.html',
   styleUrl: './home.css',
-  providers: [CategoryService,CategoriesStoreItem, ProductService, ProductStoreItem]
+  providers: [
+    CategoryService,
+    CategoriesStoreItem,
+    ProductService,
+    ProductStoreItem,
+    CartStoreItem
+  ]
 })
 export class Home {
 

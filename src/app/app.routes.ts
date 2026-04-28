@@ -7,7 +7,8 @@ export const routes: Routes = [
         children: [
             { path: '', redirectTo: 'products', pathMatch: 'full' },
             { path: 'products', loadComponent: () => import('./components/home/products-gallery/products-gallery').then(m => m.ProductsGallery) },
-            { path: 'product/:id', loadComponent: () => import('./components/home/products-details/products-details').then(m => m.ProductsDetails) }
+            { path: 'product/:id', loadComponent: () => import('./components/home/products-details/products-details').then(m => m.ProductsDetails) },
+            { path: 'cart', loadComponent: () => import('./components/home/cart/cart').then(m => m.Cart) },
         ]
     },  
     { path: '', redirectTo: '/home/products', pathMatch: 'full' },

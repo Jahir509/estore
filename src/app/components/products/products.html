@@ -1,4 +1,4 @@
-<div class="flex flex-wrap justify-evenly">
+<div class="flex flex-wrap justify-center gap-6">
   @if(loading()) {
     <h2 class="text-2xl font-semibold text-gray-400">Loading...</h2>
   } @else if(products().length === 0) {
@@ -33,6 +33,20 @@
             </ng-container>
           }
         </div>
+        <button 
+          (click)="addToCart(product)"
+          class=" flex items-center
+          justify-center gap-2
+          w-full py-2 text-white bg-black
+          routded-lg hover:bg-gray-800 transition-colors
+          hover:text-white rounded-lg
+          "
+        >
+          <fa-icon [icon]="faShoppingCart" class="text-lg"></fa-icon>
+          <span class="text-sm font-medium">
+            Add to Cart
+          </span>
+        </button>
       </div>
     }
   }
