@@ -10,6 +10,7 @@ import { ProductStoreItem } from './services/products/product.store-item';
 import { SearchType } from './types/searchType.interface';
 import { RouterOutlet } from '@angular/router';
 import { CartStoreItem } from './services/cart/cart.store-item';
+import { AuthService } from './services/auth/auth-service';
 
 @Component({
   selector: 'app-home',
@@ -21,7 +22,8 @@ import { CartStoreItem } from './services/cart/cart.store-item';
     CategoriesStoreItem,
     ProductService,
     ProductStoreItem,
-    CartStoreItem
+    CartStoreItem,
+    AuthService
   ]
 })
 export class Home {
