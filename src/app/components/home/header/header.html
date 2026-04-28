@@ -35,16 +35,16 @@
       class="p-0 w-[50%] h-[2.5rem] flex items-center rounded-md overflow-hidden"
       ></div>
    }
-   <div class="flex items-center w-[27%] gap-6 justify-end h-full">
+   <div class="flex items-center w-[27%] gap-6 justify-end h-full text-white">
       @if (!isUserAuthenticated()) {
-    <div class="flex items-center gap-2">
-      <fa-icon [icon]="faUserCircle" class="text-[1.3em]"></fa-icon>
-      <a
-        routerLink="/home/login"
-        class="px-1 py-1 rounded transition-all duration-300 hover:bg-white hover:text-gray-900"
-        >Sign in / Join</a
-      >
-    </div>
+         <div class="flex items-center px-1 rounded transition-all duration-300 hover:bg-white hover:text-gray-900">
+            <fa-icon [icon]="faUserCircle" class="text-[1.3em]"></fa-icon>
+            <a
+            routerLink="/home/login"
+            class="px-1 py-1 "
+            >Sign in / Join</a
+            >
+         </div>
     } @if (isUserAuthenticated()) {
     <div class="relative inline-block text-left">
       <button
