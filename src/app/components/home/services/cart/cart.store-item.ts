@@ -1,9 +1,9 @@
-import { computed, signal } from "@angular/core";
+import { computed, effect, signal } from "@angular/core";
 import { CartItem } from "../../types/cart.interface";
 import { Product } from "../../types/product.interface";
 
 export class CartStoreItem {
-    private readonly _products = signal<CartItem[]>([]);
+    private readonly _products = signal<CartItem[]>(this.loadFromSession());
 
     readonly totalAmount = computed(()=> this._products().reduce((sum,item)=> sum + item.amount, 0));
     readonly totalProducts = computed(()=> this._products().reduce((count,item)=> count + item.quantity, 0));
@@ -13,6 +13,17 @@ export class CartStoreItem {
         totalAmount: this.totalAmount(),
         totalProducts: this.totalProducts()
     }));
+
+    private _saveEffect = effect(() => {
+        if (typeof window === 'undefined') return;
+
+        const products = this._products();
+        if (products.length > 0) {
+            sessionStorage.setItem('cart', JSON.stringify(products));
+        } else {
+            sessionStorage.removeItem('cart');
+        }
+    });
 
     addToCart(product:Product):void{
         const currentProducts = this._products();
@@ -58,4 +69,15 @@ export class CartStoreItem {
     );
     this._products.set(updatedItems);
   }
+
+    private loadFromSession(): CartItem[] {
+        if (typeof window === 'undefined') return [];
+        
+        const storedCart = sessionStorage.getItem('cart');
+        try {
+            return storedCart ? JSON.parse(storedCart) : [];
+        } catch {
+            return [];
+        }
+    }
 }
