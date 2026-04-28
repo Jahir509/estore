@@ -7,13 +7,13 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { CategoriesStoreItem } from '../services/categories/categories.store-item';
 import { SearchType } from '../types/searchType.interface';
-import { Router,NavigationEnd } from '@angular/router';
+import { Router,NavigationEnd, RouterLink } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { CartStoreItem } from '../services/cart/cart.store-item';
 
 @Component({
   selector: 'app-header',
-  imports: [FontAwesomeModule],
+  imports: [FontAwesomeModule,RouterLink],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })

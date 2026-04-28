@@ -9,6 +9,8 @@ export const routes: Routes = [
             { path: 'products', loadComponent: () => import('./components/home/products-gallery/products-gallery').then(m => m.ProductsGallery) },
             { path: 'product/:id', loadComponent: () => import('./components/home/products-details/products-details').then(m => m.ProductsDetails) },
             { path: 'cart', loadComponent: () => import('./components/home/cart/cart').then(m => m.Cart) },
+            { path: 'signup', loadComponent: () => import('./components/home/auth/signup/signup').then(m => m.Signup)},
+            { path: 'login', loadComponent: () => import('./components/home/auth/login/login').then(m => m.Login)},
         ]
     },  
     { path: '', redirectTo: '/home/products', pathMatch: 'full' },
