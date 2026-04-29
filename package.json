@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "rm -rf .angular && ng serve",
     "start:optimize": "VITE_OPTIMIZE=true ng serve",
     "start:no-optimize": "VITE_OPTIMIZE=false ng serve",
     "clear-cache": "rm -rf .angular/cache node_modules/.vite",

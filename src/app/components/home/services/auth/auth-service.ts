@@ -11,6 +11,7 @@ export class AuthService {
   private isAuthenticated = signal<boolean>(false);
   private loggedInUserInfo = signal<LoggedInUser>({} as LoggedInUser);
   private autoLogoutTimer: any;
+  private authToken!: string;
 
   constructor(private http: HttpClient) {
     if (isPlatformBrowser(this.platformId)) {
@@ -36,6 +37,7 @@ export class AuthService {
           email: localStorage.getItem('email') ?? '',
         });
         this.setAutoLogoutTimer(expiresIn);
+        this.authToken = token;
       } else {
         this.clearStorage();
       }
@@ -65,8 +67,16 @@ export class AuthService {
     return toObservable(this.isAuthenticated);
   }
 
+  get loggedInUser(): LoggedInUser {
+    return this.loggedInUserInfo();
+  }
+
   get loggedInUser$(): Observable<LoggedInUser> {
     return toObservable(this.loggedInUserInfo);
+  }
+
+  get token(): string {
+    return this.authToken;
   }
 
   createUser(user: User): Observable<any> {
@@ -92,6 +102,7 @@ export class AuthService {
     this.loggedInUserInfo.set(token.user);
     this.setAutoLogoutTimer(token.expiresInSeconds * 1000);
     // this.setAutoLogoutTimer(10 * 1000);
+    this.authToken = token.token;
   }
 
   logout(): void {

@@ -11,6 +11,7 @@ import { SearchType } from './types/searchType.interface';
 import { RouterOutlet } from '@angular/router';
 import { CartStoreItem } from './services/cart/cart.store-item';
 import { AuthService } from './services/auth/auth-service';
+import { OrderService } from './services/order/order-service';
 
 @Component({
   selector: 'app-home',
@@ -23,7 +24,8 @@ import { AuthService } from './services/auth/auth-service';
     ProductService,
     ProductStoreItem,
     CartStoreItem,
-    AuthService
+    AuthService,
+    OrderService
   ]
 })
 export class Home {

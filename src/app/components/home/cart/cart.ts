@@ -10,6 +10,7 @@ import { CartItem } from '../types/cart.interface';
 import { AuthService } from '../services/auth/auth-service';
 import { LoggedInUser } from '../types/user.interface';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { OrderService } from '../services/order/order-service';
 @Component({
   selector: 'app-cart',
   imports: [FontAwesomeModule,Ratings,CommonModule,ReactiveFormsModule],
@@ -20,6 +21,10 @@ export class Cart {
   faTrash = faTrash;
   faBoxOpen = faBoxOpen;
   faShoppingCart = faShoppingCart;
+
+  alertType: number = 0;
+  alertMessage: string = '';
+  disableCheckout: boolean = false;
   
   user = signal<LoggedInUser>({} as LoggedInUser);
   orderForm: WritableSignal<FormGroup>;
@@ -27,7 +32,8 @@ export class Cart {
   constructor(public cartStore: CartStoreItem,
     private router: Router,
     private authService: AuthService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private orderService: OrderService
   ) {
     this.authService.loggedInUser$.subscribe(user => {
       this.user.set(user);
@@ -73,14 +79,54 @@ export class Cart {
   }
 
   onSubmit(): void {
-    if (this.orderForm().valid) {
-      // Here you would typically send the order data to your backend API
-      console.log('Order submitted:', this.orderForm().value, this.cartStore.cart());
-      alert('Order placed successfully!');
-      // Clear the cart after successful order placement
-      this.cartStore.cart().products.forEach(item => this.cartStore.removeProduct(item));
-    } else {
-      alert('Please fill in all required fields.');
+    if(!this.authService.isUserAuthenticated){
+      this.alertType = 2;
+      this.alertMessage = 'Please login to place the order.';
+      return;
     }
+    
+
+    const form = this.orderForm();
+    if(form.invalid){
+      this.alertType = 2;
+      this.alertMessage = 'Please fill all the required fields.';
+      form.markAllAsTouched();
+      return;
+    }
+
+    if(!this.user()){
+      this.alertType = 2;
+      this.alertMessage = 'User information is missing. Please login again.';
+      return;
+    }
+
+    
+    this.disableCheckout = true;
+    const deliveryAddress = {
+      userName: form.get('name')?.value,
+      email: form.get('email')?.value,
+      address: form.get('address')?.value,
+      city: form.get('city')?.value,
+      state: form.get('state')?.value,
+      pin: form.get('pin')?.value,
+    };
+
+    this.orderService.saveOrder(deliveryAddress).subscribe({
+      next: (data) => {
+        this.alertType = 1;
+        this.alertMessage = 'Order placed successfully.';
+        this.cartStore.clearCart();
+        this.disableCheckout = false;
+      },
+      error: (err) => {
+        this.alertType = 2;
+        if (err.error?.message === 'Authorization failed!') {
+          this.alertMessage = 'Please log in to register your order.';
+        } else {
+          this.alertMessage =
+            err.error?.message || 'An unexpected error occurred.';
+        }
+      }
+    });
   }
 }

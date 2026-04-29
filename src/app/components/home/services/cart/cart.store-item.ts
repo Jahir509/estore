@@ -63,12 +63,12 @@ export class CartStoreItem {
         this._products.set(updatedItems);
     }
 
-  removeProduct(cartItem: CartItem): void {
-    const updatedItems = this._products().filter(
-      (item) => item.product.id !== cartItem.product.id
-    );
-    this._products.set(updatedItems);
-  }
+    removeProduct(cartItem: CartItem): void {
+        const updatedItems = this._products().filter(
+        (item) => item.product.id !== cartItem.product.id
+        );
+        this._products.set(updatedItems);
+    }
 
     private loadFromSession(): CartItem[] {
         if (typeof window === 'undefined') return [];
@@ -80,4 +80,14 @@ export class CartStoreItem {
             return [];
         }
     }
+
+    clearCart(): void {
+        if (typeof window === 'undefined') return;
+        sessionStorage.removeItem('cart');
+        this.cart().products = [];
+        this.cart().totalAmount = 0;
+        this.cart().totalProducts = 0;
+    }
+
+        
 }
