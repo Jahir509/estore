@@ -21,6 +21,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
   styleUrl: './header.css',
 })
 export class Header {
+
   faSearch = faSearch;
   faUserCircle = faUserCircle;
   faShoppingCart = faShoppingCart;
@@ -80,5 +81,9 @@ export class Header {
 
   navigateToCart(): void {
     this.router.navigate(['home/cart']);
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }

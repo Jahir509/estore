@@ -10,6 +10,7 @@ export class AuthService {
   private platformId = inject(PLATFORM_ID);
   private isAuthenticated = signal<boolean>(false);
   private loggedInUserInfo = signal<LoggedInUser>({} as LoggedInUser);
+  private autoLogoutTimer: any;
 
   constructor(private http: HttpClient) {
     if (isPlatformBrowser(this.platformId)) {
@@ -20,10 +21,10 @@ export class AuthService {
   private initFromStorage(): void {
     const token = localStorage.getItem('token');
     const expiry = localStorage.getItem('expiry');
-
     if (token && expiry) {
-      const isExpired = new Date(expiry) < new Date();
-      if (!isExpired) {
+      // const isExpired = new Date(expiry) < new Date();
+      const expiresIn = new Date(expiry).getTime() - Date.now();
+      if (expiresIn > 0) {
         this.isAuthenticated.set(true);
         this.loggedInUserInfo.set({
           firstName: localStorage.getItem('firstName') ?? '',
@@ -34,6 +35,7 @@ export class AuthService {
           pin: localStorage.getItem('pin') ?? '',
           email: localStorage.getItem('email') ?? '',
         });
+        this.setAutoLogoutTimer(expiresIn);
       } else {
         this.clearStorage();
       }
@@ -88,5 +90,21 @@ export class AuthService {
     localStorage.setItem('email', token.user.email ?? '');
     this.isAuthenticated.set(true);
     this.loggedInUserInfo.set(token.user);
+    this.setAutoLogoutTimer(token.expiresInSeconds * 1000);
+    // this.setAutoLogoutTimer(10 * 1000);
   }
+
+  logout(): void {
+    localStorage.clear();
+    this.isAuthenticated.set(false);
+    this.loggedInUserInfo.set({} as LoggedInUser);
+    clearTimeout(this.autoLogoutTimer);
+  }
+
+  private setAutoLogoutTimer(duration: number): void {
+    this.autoLogoutTimer = setTimeout(() => {
+      this.logout();
+    }, duration);
+  }
+
 }
