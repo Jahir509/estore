@@ -44,7 +44,6 @@ export class Signup {
   }
 
   onSubmit(): void {
-    debugger;
     if (this.userSignupForm.invalid) {
       this.alertMessage = 'Please fill all required fields correctly.';
       this.alertType = 1;

@@ -2,3 +2,12 @@
 @import "tailwindcss";
 @source "./";
 @tailwind utilities;
+
+router-outlet + * {
+  animation: fadeIn 0.15s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

@@ -54,7 +54,6 @@ export class PastOrders {
   }
 
   selectOrder(event: Event): void {
-    debugger;
     const value = Number.parseInt((event.target as HTMLSelectElement).value);
     this.selectedOrderId.set(value > 0 ? value : null);
   }

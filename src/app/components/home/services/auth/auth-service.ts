@@ -5,7 +5,9 @@ import { Observable } from 'rxjs/internal/Observable';
 import { LoggedInUser, LoginToken, User } from '../../types/user.interface';
 import { toObservable } from '@angular/core/rxjs-interop';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthService {
   private platformId = inject(PLATFORM_ID);
   private isAuthenticated = signal<boolean>(false);
